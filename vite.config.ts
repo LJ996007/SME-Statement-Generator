@@ -8,8 +8,10 @@ import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime()];
+const base = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({
+  base,
   plugins,
   resolve: {
     alias: {
