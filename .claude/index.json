@@ -1,0 +1,266 @@
+{
+  "metadata": {
+    "generatedAt": "2026-01-07T22:21:18+08:00",
+    "projectName": "sme_declaration_generator",
+    "projectSummary": "中小企业声明函生成器 - 一个用于生成中小企业声明函的网页应用",
+    "version": "1.0.0"
+  },
+  "modules": [
+    {
+      "name": "root",
+      "path": "./",
+      "type": "root",
+      "documentation": "./CLAUDE.md",
+      "description": "项目根目录，包含整体架构文档",
+      "entryPoints": [],
+      "interfaces": [],
+      "dependencies": []
+    },
+    {
+      "name": "client",
+      "path": "./client",
+      "type": "frontend",
+      "documentation": "./client/CLAUDE.md",
+      "description": "React 前端应用，负责用户界面和交互",
+      "language": "TypeScript",
+      "entryPoints": [
+        "src/main.tsx",
+        "src/App.tsx"
+      ],
+      "interfaces": [
+        {
+          "name": "Web UI",
+          "type": "HTTP/Web",
+          "description": "用户界面路由"
+        }
+      ],
+      "dependencies": [
+        "react",
+        "react-dom",
+        "@trpc/client",
+        "@tanstack/react-query",
+        "wouter",
+        "tailwindcss"
+      ],
+      "testFiles": [
+        "src/lib/declaration-content.test.ts",
+        "src/lib/declaration-formatter.test.ts"
+      ],
+      "coverage": {
+        "scanned": true,
+        "fileCount": 85,
+        "keyFilesIdentified": true
+      }
+    },
+    {
+      "name": "server",
+      "path": "./server",
+      "type": "backend",
+      "documentation": "./server/CLAUDE.md",
+      "description": "Express 后端服务，提供 API 和业务逻辑",
+      "language": "TypeScript",
+      "entryPoints": [
+        "_core/index.ts"
+      ],
+      "interfaces": [
+        {
+          "name": "tRPC API",
+          "type": "HTTP/tRPC",
+          "basePath": "/api/trpc",
+          "description": "类型安全的 RPC API"
+        },
+        {
+          "name": "OAuth Callback",
+          "type": "HTTP",
+          "path": "/api/oauth/callback",
+          "description": "Manus OAuth 认证回调"
+        }
+      ],
+      "dependencies": [
+        "express",
+        "@trpc/server",
+        "drizzle-orm",
+        "mysql2",
+        "cookie",
+        "jose",
+        "docx"
+      ],
+      "testFiles": [
+        "auth.logout.test.ts",
+        "classification.test.ts"
+      ],
+      "coverage": {
+        "scanned": true,
+        "fileCount": 24,
+        "keyFilesIdentified": true
+      }
+    },
+    {
+      "name": "shared",
+      "path": "./shared",
+      "type": "shared",
+      "documentation": "./shared/CLAUDE.md",
+      "description": "前后端共享的类型定义和业务逻辑",
+      "language": "TypeScript",
+      "entryPoints": [],
+      "interfaces": [],
+      "keyFiles": [
+        "const.ts",
+        "types.ts",
+        "industry-standards.ts"
+      ],
+      "exports": [
+        {
+          "name": "IndustryType",
+          "from": "industry-standards",
+          "description": "15 个行业类型枚举"
+        },
+        {
+          "name": "classifyEnterprise",
+          "from": "industry-standards",
+          "description": "企业分类函数"
+        },
+        {
+          "name": "COOKIE_NAME",
+          "from": "const",
+          "description": "会话 Cookie 名称"
+        }
+      ],
+      "coverage": {
+        "scanned": true,
+        "fileCount": 5,
+        "keyFilesIdentified": true
+      }
+    },
+    {
+      "name": "drizzle",
+      "path": "./drizzle",
+      "type": "database",
+      "documentation": "./drizzle/CLAUDE.md",
+      "description": "数据库模式定义和迁移管理",
+      "language": "TypeScript",
+      "entryPoints": [],
+      "keyFiles": [
+        "schema.ts",
+        "relations.ts"
+      ],
+      "tables": [
+        {
+          "name": "users",
+          "description": "用户表",
+          "columns": ["id", "openId", "name", "email", "role", "createdAt", "updatedAt"]
+        },
+        {
+          "name": "declarations",
+          "description": "声明函记录表",
+          "columns": ["id", "userId", "projectName", "targetName", "industryType", "enterprises", "content", "wordDocUrl", "createdAt", "updatedAt"]
+        }
+      ],
+      "migrations": [
+        "0000_eager_iceman.sql",
+        "0001_soft_hannibal_king.sql",
+        "0002_great_logan.sql"
+      ],
+      "coverage": {
+        "scanned": true,
+        "fileCount": 10,
+        "keyFilesIdentified": true
+      }
+    }
+  ],
+  "coverage": {
+    "totalFiles": 120,
+    "scannedFiles": 90,
+    "coveragePercent": 75,
+    "ignoredPatterns": [
+      "node_modules/**",
+      ".git/**",
+      "dist/**",
+      "build/**",
+      "**/*.lock",
+      "**/*.log",
+      "**/*.bin"
+    ],
+    "truncated": false,
+    "gaps": [
+      {
+        "module": "patches",
+        "reason": "npm patches 目录，未深入分析",
+        "recommendation": "如需了解，可检查 patches/wouter@3.7.1.patch"
+      },
+      {
+        "module": "test coverage",
+        "reason": "测试文件未完全分析",
+        "recommendation": "可补充测试文件的详细分析"
+      }
+    ]
+  },
+  "ignoreRules": {
+    "source": ".gitignore",
+    "customRules": [
+      "node_modules/**",
+      ".git/**",
+      ".github/**",
+      "dist/**",
+      "build/**",
+      ".next/**",
+      "__pycache__/**",
+      "*.lock",
+      "*.log",
+      "*.bin",
+      "*.pdf",
+      "*.png",
+      "*.jpg",
+      "*.jpeg",
+      "*.gif",
+      "*.mp4",
+      "*.zip",
+      "*.tar",
+      "*.gz"
+    ]
+  },
+  "statistics": {
+    "languages": {
+      "TypeScript": "95%",
+      "JavaScript": "3%",
+      "CSS": "2%"
+    },
+    "frameworks": [
+      "React",
+      "Express",
+      "tRPC",
+      "Drizzle ORM",
+      "Tailwind CSS"
+    ],
+    "componentCount": {
+      "uiComponents": 50,
+      "pages": 4,
+      "hooks": 4,
+      "contexts": 1
+    }
+  },
+  "nextSteps": [
+    "补充测试文件的详细分析",
+    "添加 API 接口文档",
+    "创建部署指南",
+    "添加性能优化建议",
+    "创建开发者贡献指南"
+  ],
+  "recommendations": {
+    "immediate": [
+      "补充测试覆盖率到 80% 以上",
+      "添加 API 性能监控",
+      "完善错误处理机制"
+    ],
+    "shortTerm": [
+      "实现批量导出功能",
+      "添加声明函模板管理",
+      "优化移动端体验"
+    ],
+    "longTerm": [
+      "支持多租户",
+      "添加数据统计功能",
+      "实现工作流管理"
+    ]
+  }
+}

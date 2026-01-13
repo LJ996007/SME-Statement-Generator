@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm list:*)",
+      "Bash(pnpm install:*)",
+      "Bash(mysql:*)",
+      "Bash(findstr:*)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm add:*)",
+      "Bash(timeout:*)",
+      "Bash(pnpm db:push:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm build:*)"
+    ]
+  }
+}
