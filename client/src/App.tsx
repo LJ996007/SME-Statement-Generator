@@ -24,8 +24,14 @@ function AppRouter() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
-  const base =
+  const normalizedBase =
     import.meta.env.BASE_URL === "/" ? "" : import.meta.env.BASE_URL.replace(/\/$/, "");
+  const ghPagesBase = "/SME-Statement-Generator";
+  const inferredBase =
+    normalizedBase ||
+    (typeof window !== "undefined" && window.location.pathname.startsWith(ghPagesBase)
+      ? ghPagesBase
+      : "");
 
   return (
     <ErrorBoundary>
@@ -35,7 +41,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
-          <WouterRouter base={base}>
+          <WouterRouter base={inferredBase}>
             <AppRouter />
           </WouterRouter>
         </TooltipProvider>
